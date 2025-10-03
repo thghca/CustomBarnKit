@@ -26,15 +26,21 @@ namespace CustomBarnKit
                     CommNetNetwork.Reset();
 
                 log(customGameVariables.ToString());
-
-                // We have to reload everything at each scene changes because the game mess up some of the values...
-                GameEvents.onLevelWasLoaded.Add(LoadUpgradesPricesSceneChange);
-
-                // The "Switch Editor" button also reset everything
-                GameEvents.onEditorRestart.Add(LoadUpgradesPrices);
-                
-                BreakStuff();
             }
+
+            // We have to reload everything at each scene changes because the game mess up some of the values...
+            GameEvents.onLevelWasLoaded.Add(LoadUpgradesPricesSceneChange);
+
+            // The "Switch Editor" button also reset everything
+            GameEvents.onEditorRestart.Add(LoadUpgradesPrices);
+
+            BreakStuff();
+        }
+
+        public void OnDestroy()
+        {
+            GameEvents.onLevelWasLoaded.Remove(LoadUpgradesPricesSceneChange);
+            GameEvents.onEditorRestart.Remove(LoadUpgradesPrices);
         }
 
         private void BreakStuff()
@@ -190,7 +196,7 @@ namespace CustomBarnKit
             varLoaded = true;
         }
 
-        private float[] getFacilityUpgradePrices(SpaceCenterFacility f)
+        private static float[] getFacilityUpgradePrices(SpaceCenterFacility f)
         {
             switch (f)
             {
@@ -217,7 +223,7 @@ namespace CustomBarnKit
             }
         }
 
-        private int getFacilityLevels(SpaceCenterFacility f)
+        private static int getFacilityLevels(SpaceCenterFacility f)
         {
             switch (f)
             {
@@ -244,7 +250,7 @@ namespace CustomBarnKit
             }
         }
 
-        private int[] getFacilityLevelsVisual(SpaceCenterFacility f)
+        private static int[] getFacilityLevelsVisual(SpaceCenterFacility f)
         {
             switch (f)
             {
