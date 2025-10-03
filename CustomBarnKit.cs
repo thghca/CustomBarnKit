@@ -6,7 +6,8 @@ using Upgradeables;
 
 namespace CustomBarnKit
 {
-    [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    //EditorAny,Flight,SpaceCentre,TrackingStation
+    [KSPAddon(KSPAddon.Startup.AllGameScenes, true)]
     public class CustomBarnKit : MonoBehaviour
     {
         internal static CustomGameVariables customGameVariables;
@@ -15,6 +16,8 @@ namespace CustomBarnKit
 
         public void Start()
         {
+            DontDestroyOnLoad(this);
+
             if (!varLoaded)
             {
                 customGameVariables = GameVariables.Instance.gameObject.AddComponent<CustomGameVariables>();
